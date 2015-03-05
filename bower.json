@@ -1,0 +1,21 @@
+{
+  "name": "moneybook",
+  "version": "0.0.0",
+  "authors": [
+    "mytory <mytory@gmail.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "jquery": "1.11.2",
+    "bootstrap": "~3.3.2",
+    "fontawesome": "~4.3.0"
+  }
+}
