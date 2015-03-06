@@ -1,4 +1,9 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
+
 import os
 import urllib
 
@@ -20,9 +25,14 @@ class MainHandler(webapp2.RequestHandler):
         user = users.get_current_user()
 
         # https://cloud.google.com/appengine/docs/python/gettingstartedpython27/templates
-        self.response.headers['Content-Type'] = 'text/html'
 
-        self.response.write('<h1>Hello world!</h1>')
+        template_value = {
+            'user': user,
+            'text': "안녕하세요"
+        }
+
+        template = JINJA_ENVIRONMENT.get_template('index.html')
+        self.response.write(template.render(template_value))
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler)
