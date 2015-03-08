@@ -23,17 +23,24 @@ JINJA_ENVIRONMENT = jinja2.Environment(
 class MainHandler(webapp2.RequestHandler):
     def get(self):
         user = users.get_current_user()
+        if user == None:
+            self.redirect(users.create_login_url(self.request.uri))
+        else:
+            self.redirect('register')
 
-        # https://cloud.google.com/appengine/docs/python/gettingstartedpython27/templates
+class RegisterHandler(webapp2.RequestHandler):
+    def get(self):
+        user = users.get_current_user()
 
         template_value = {
             'user': user,
             'text': "안녕하세요"
         }
 
-        template = JINJA_ENVIRONMENT.get_template('index.html')
+        template = JINJA_ENVIRONMENT.get_template('register.html')
         self.response.write(template.render(template_value))
 
 app = webapp2.WSGIApplication([
-    ('/', MainHandler)
+    ('/', MainHandler),
+    ('/register', RegisterHandler),
 ], debug=True)
