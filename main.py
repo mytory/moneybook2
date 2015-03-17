@@ -39,7 +39,7 @@ class RegisterHandler(InitHandler):
         user = users.get_current_user()
 
         template_value = {
-            'base_url': 'http://' + self.request.host,
+            'base_url': self.request.application_url,
             'user': user,
             'text': "안녕하세요"
         }
