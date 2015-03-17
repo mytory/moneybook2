@@ -20,15 +20,19 @@ JINJA_ENVIRONMENT = jinja2.Environment(
     autoescape=True
 )
 
+
 class InitHandler(webapp2.RequestHandler):
-    def __init__(self):
+    def __init__(self, request, response):
+        webapp2.RequestHandler.__init__(self, request, response)
         user = users.get_current_user()
-        if user == None:
+        if user is None:
             self.redirect(users.create_login_url(self.request.uri))
+
 
 class MainHandler(InitHandler):
     def get(self):
         self.redirect('register')
+
 
 class RegisterHandler(InitHandler):
     def get(self):
