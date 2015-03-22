@@ -4,7 +4,7 @@
 
 {% block body %}
 
-<form role="form">
+<form role="form" method="post">
     <div class="form-group">
         <label>타입</label>
 
@@ -25,19 +25,19 @@
     </div>
     <div class="form-group">
         <label for="category">분류</label>
-        <input type="text" class="form-control" id="category">
+        <input name="category" type="text" class="form-control" id="category">
     </div>
     <div class="form-group">
         <label for="amount">금액</label>
-        <input type="tel" class="form-control" id="amount">
+        <input name="amount" type="tel" class="form-control" id="amount">
     </div>
     <div class="form-group">
         <label for="memo">내역</label>
-        <input type="text" class="form-control" id="memo">
+        <input name="memo" type="text" class="form-control" id="memo">
     </div>
     <div class="form-group">
         <label for="date">날짜</label>
-        <input type="date" class="form-control" id="date">
+        <input name="date" type="date" class="form-control" id="date">
     </div>
     <button type="submit" class="btn btn-primary btn-block">등록</button>
 </form>

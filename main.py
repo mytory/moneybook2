@@ -47,6 +47,13 @@ class RegisterHandler(InitHandler):
         template = JINJA_ENVIRONMENT.get_template('register.html')
         self.response.write(template.render(template_value))
 
+    def post(self):
+        print self.request.get('type')
+        print self.request.get('amount')
+        print self.request.get('memo')
+        print self.request.get('date')
+        print self.request
+
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
     ('/register', RegisterHandler),
