@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import sys
+from datetime import datetime
+
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
@@ -19,6 +21,15 @@ JINJA_ENVIRONMENT = jinja2.Environment(
     extensions=['jinja2.ext.autoescape'],
     autoescape=True
 )
+
+
+class Details(ndb.Model):
+    type = ndb.StringProperty()
+    category = ndb.StringProperty()
+    amount = ndb.IntegerProperty()
+    memo = ndb.StringProperty()
+    date = ndb.DateProperty()
+    created = ndb.DateTimeProperty(auto_now_add=True)
 
 
 class InitHandler(webapp2.RequestHandler):
@@ -48,13 +59,14 @@ class RegisterHandler(InitHandler):
         self.response.write(template.render(template_value))
 
     def post(self):
-        print self.request.get('type')
-        print self.request.get('amount')
-        print self.request.get('memo')
-        print self.request.get('date')
-        print self.request
+        detail = Details()
+        detail.type = self.request.get('type')
+        detail.category = self.request.get('category')
+        detail.amount = int(self.request.get('amount'))
+        detail.memo = self.request.get('memo')
+        detail.date = datetime.strptime(self.request.get('date'), '%Y-%m-%d')
+        detail.put()
+        self.redirect('register')
 
-app = webapp2.WSGIApplication([
-    ('/', MainHandler),
-    ('/register', RegisterHandler),
-], debug=True)
+
+app = webapp2.WSGIApplication([('/', MainHandler), ('/register', RegisterHandler), ], debug=True)
