@@ -21,8 +21,8 @@
 
         <div class="collapse navbar-collapse js-navbar">
             <ul class="nav navbar-nav">
-                <li><a href="{{ base_url }}/list">내역</a></li>
-                <li class="active"><a href="{{ base_url }}/register">등록</a></li>
+                <li class="js-내역"><a href="{{ base_url }}/list">내역</a></li>
+                <li class="js-등록"><a href="{{ base_url }}/register">등록</a></li>
             </ul>
         </div>
     </nav>
@@ -32,5 +32,6 @@
 </div>
 
 <script src="assets/production.min.js"></script>
+{% block script %}{% endblock %}
 </body>
 </html>

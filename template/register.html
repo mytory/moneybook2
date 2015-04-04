@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}쓰기{% endblock %}
+{% block title %}등록{% endblock %}
 
 {% block body %}
 
@@ -45,6 +45,11 @@
     </div>
     <button type="submit" class="btn btn-primary btn-block">등록</button>
 </form>
+{% endblock %}
 
+{% block script %}
+<script>
+    $('.js-등록').addClass('active');
+</script>
 {% endblock %}
 
