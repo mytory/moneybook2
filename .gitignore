@@ -4,3 +4,4 @@
 node_modules
 assets/production*
 .DS_Store
+index.yaml

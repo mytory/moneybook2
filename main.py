@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import sys
-from datetime import datetime
+from datetime import datetime, timedelta
+import time
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
@@ -29,6 +30,7 @@ class Details(ndb.Model):
     amount = ndb.IntegerProperty()
     memo = ndb.StringProperty()
     date = ndb.DateProperty()
+    account = ndb.StringProperty()
     created = ndb.DateTimeProperty(auto_now_add=True)
 
 
@@ -64,9 +66,45 @@ class RegisterHandler(InitHandler):
         detail.category = self.request.get('category')
         detail.amount = int(self.request.get('amount'))
         detail.memo = self.request.get('memo')
-        detail.date = datetime.strptime(self.request.get('date'), '%Y-%m-%d')
+        detail.date = datetime.strptime(self.request.get('date'), '%Y-%m-%d').date()
+        detail.account = self.request.get('account')
         detail.put()
         self.redirect('register')
 
 
-app = webapp2.WSGIApplication([('/', MainHandler), ('/register', RegisterHandler), ], debug=True)
+class ListHandler(InitHandler):
+    def get(self):
+        user = users.get_current_user()
+        date = self.request.get('date')
+        if not date:
+            date = time.strftime('%Y-%m-%d')
+
+        today = datetime.strptime(date, '%Y-%m-%d').date()
+        tomorrow = (today + timedelta(days=1))
+        yesterday = (today - timedelta(days=1))
+        objs = Details\
+            .query(Details.date >= today, Details.date < tomorrow)\
+            .order(Details.date, -Details.created)\
+            .fetch()
+
+        template_value = {
+            'tomorrow': tomorrow,
+            'today': today,
+            'yesterday': yesterday,
+            'date': date,
+            'objs': objs,
+            'base_url': self.request.application_url,
+            'user': user,
+            'text': "안녕하세요"
+        }
+
+        template = JINJA_ENVIRONMENT.get_template('list.html')
+        self.response.write(template.render(template_value))
+
+
+handler = [
+    ('/', MainHandler),
+    ('/register', RegisterHandler),
+    ('/list', ListHandler),
+]
+app = webapp2.WSGIApplication(handler, debug=True)

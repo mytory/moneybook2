@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}목록{% endblock %}
+
+{% block body %}
+<h2>{{date}}</h2>
+<a href="{{ base_url }}/list?date={{yesterday}}">{{yesterday}}</a>
+<a href="{{ base_url }}/list?date={{tomorrow}}">{{tomorrow}}</a>
+<ul>
+    {% for obj in objs %}
+    <li>
+        {{ obj.type }}
+        {{ obj.date }}
+        {{ obj.memo }}
+        {{ obj.category }}
+        {{ obj.account }}
+        {{ obj.amount }}
+    </li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
+
