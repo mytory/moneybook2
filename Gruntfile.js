@@ -6,6 +6,7 @@ module.exports = function (grunt) {
         concat: {
             basic: {
                 src: [
+                    'assets/src/pre-style.css',
                     './bower_components/bootstrap/dist/css/bootstrap.min.css',
                     './bower_components/bootstrap/dist/css/bootstrap-theme.min.css',
                     './bower_components/bootstrap-datepicker-eyecon/css/datepicker.css',
