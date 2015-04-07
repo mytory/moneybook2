@@ -8,6 +8,7 @@ module.exports = function (grunt) {
                 src: [
                     './bower_components/bootstrap/dist/css/bootstrap.min.css',
                     './bower_components/bootstrap/dist/css/bootstrap-theme.min.css',
+                    './bower_components/bootstrap-datepicker-eyecon/css/datepicker.css',
                     'assets/src/style.css'
                 ],
                 dest: 'assets/production.css'
@@ -22,6 +23,7 @@ module.exports = function (grunt) {
                     'assets/production.min.js': [
                         './bower_components/jquery/dist/jquery.min.js',
                         './bower_components/bootstrap/dist/js/bootstrap.min.js',
+                        './bower_components/bootstrap-datepicker-eyecon/js/bootstrap-datepicker.js',
                         'assets/src/script.js'
                     ]
                 }
