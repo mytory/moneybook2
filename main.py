@@ -34,6 +34,15 @@ class Details(ndb.Model):
     created = ndb.DateTimeProperty(auto_now_add=True)
 
 
+class Accounts(ndb.Model):
+    name = ndb.StringProperty()
+    owner = ndb.StringProperty()
+    whether_savings = ndb.BooleanProperty()
+    in_balance = ndb.BooleanProperty()
+    initial_amount = ndb.IntegerProperty()
+    created = ndb.DateTimeProperty(auto_now_add=True)
+
+
 class InitHandler(webapp2.RequestHandler):
     def __init__(self, request, response):
         webapp2.RequestHandler.__init__(self, request, response)
@@ -98,7 +107,27 @@ class ListHandler(InitHandler):
             'text': "안녕하세요"
         }
 
-        template = JINJA_ENVIRONMENT.get_template('list.html')
+        template = JINJA_ENVIRONMENT.get_template('list.jinja2')
+        self.response.write(template.render(template_value))
+
+
+class AccountManageHandler(InitHandler):
+    def get(self):
+        user = users.get_current_user()
+        id = self.request.get('id')
+        # if not id:
+        #     self.redirect('register')
+
+        account = Accounts.get_by_id(id)
+
+        template_value = {
+            'account': account,
+            'account_balance': 10000,
+            'base_url': self.request.application_url,
+            'user': user,
+        }
+
+        template = JINJA_ENVIRONMENT.get_template('account-manage.jinja2')
         self.response.write(template.render(template_value))
 
 
@@ -106,5 +135,6 @@ handler = [
     ('/', MainHandler),
     ('/register', RegisterHandler),
     ('/list', ListHandler),
+    ('/account-manage', AccountManageHandler),
 ]
 app = webapp2.WSGIApplication(handler, debug=True)

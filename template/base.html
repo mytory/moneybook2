@@ -23,7 +23,15 @@
             <ul class="nav navbar-nav">
                 <li class="js-내역"><a href="{{ base_url }}/list">내역</a></li>
                 <li class="js-등록"><a href="{{ base_url }}/register">등록</a></li>
-                <li class="js-설정"><a href="{{ base_url }}/account">설정</a></li>
+                <li class="js-설정">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                        설정
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="{{ base_url }}/account">계좌</a></li>
+                    </ul>
+                </li>
             </ul>
         </div>
     </nav>
